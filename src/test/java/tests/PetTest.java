@@ -69,6 +69,26 @@ public class PetTest {
 
   @Test
   @Order(2)
+  @DisplayName("uploads an image")
+  void sho_(){}
+
+  @Test
+  @Order(2)
+  @DisplayName("Finds Pets by status")
+  void sho1_(){}
+
+  @Test
+  @Order(2)
+  @DisplayName("Find pet by ID")
+  void sho_1(){}
+
+  @Test
+  @Order(2)
+  @DisplayName("Updates a pet in the store with form data")
+  void sho_2(){}
+
+  @Test
+  @Order(7)
   @DisplayName("Delete a pet")
   void should_SuccessDeleteAPet_ReturnCode200And_TypeUnknownMessage100(){
     Response response = dog.delete();
