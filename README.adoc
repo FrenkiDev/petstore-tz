@@ -76,7 +76,7 @@ include::pom.xml[lines=69..94]
 [source,txt]
 include::Dockerfile[lines=2..13]
 
-*DOCKERFILE*
+*DOCKER-COMPOSE*
 
 [source,yaml]
 include::docker-compose.yml[lines=2..12]
