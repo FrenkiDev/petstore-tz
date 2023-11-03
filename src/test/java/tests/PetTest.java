@@ -35,7 +35,7 @@ public class PetTest {
 
   static {
     RestAssured.baseURI = "https://petstore.swagger.io/v2";
-    RestAssured.requestSpecification = sessionAndContentTypeJson("");
+    RestAssured.requestSpecification = sessionAndContentTypeJson("special");
   }
 
   @Test
@@ -65,5 +65,23 @@ public class PetTest {
 
     Assertions.assertEquals(dog.getId(), id);
     Assertions.assertEquals(dog.getName(), name);
+  }
+
+  @Test
+  @Order(2)
+  @DisplayName("Delete a pet")
+  void should_SuccessDeleteAPet_ReturnCode200And_TypeUnknownMessage100(){
+    Response response = dog.delete();
+
+    JsonPath jPath = response.jsonPath();
+
+    int code = jPath.getInt("code");
+    String type = jPath.getString("type");
+    String message = jPath.getString("message");
+
+    Assertions.assertAll(
+        () -> Assertions.assertEquals(200, code),
+        () -> Assertions.assertEquals("unknown", type),
+        () -> Assertions.assertEquals("100", message));
   }
 }

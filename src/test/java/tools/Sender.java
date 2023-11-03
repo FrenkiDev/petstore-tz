@@ -14,7 +14,7 @@ import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchema;
 public class Sender {
   public static RequestSpecification sessionAndContentTypeJson(String sessionCookie){
     return new RequestSpecBuilder()
-        .addCookie("SESSION", sessionCookie)
+        .addCookie("api_key", sessionCookie)
         .setContentType(ContentType.JSON)
         .build();
   }
@@ -51,11 +51,40 @@ public class Sender {
         .redirects().follow(false)
         .spec(requestSpecification)
         .when()
+        .log().all()
         .body(queryJson)
         .put(path)
         .then()
+        .log().all()
         .statusCode(statusCode)
         .body(matchesJsonSchema(new File(responseSchema)))
+        .extract().response();
+  }
+
+  public static Response step_Delete(RequestSpecification requestSpecification, String path, String nameParam, Object valueParam, int statusCode) {
+    return given()
+        .redirects().follow(false)
+        .spec(requestSpecification)
+        .queryParam(nameParam, valueParam)
+        .when()
+        .log().all()
+        .delete(path)
+        .then()
+        .log().all()
+        .statusCode(statusCode)
+        .extract().response();
+  }
+
+  public static Response step_Delete(RequestSpecification requestSpecification, String path, int valueParam, int statusCode) {
+    return given()
+        .redirects().follow(false)
+        .spec(requestSpecification)
+        .when()
+        .log().all()
+        .delete(path + "/" + valueParam)
+        .then()
+        .log().all()
+        .statusCode(statusCode)
         .extract().response();
   }
 }

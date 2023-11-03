@@ -1,6 +1,7 @@
 package endpoints;
 
 import static io.restassured.RestAssured.requestSpecification;
+import static tools.Sender.step_Delete;
 import static tools.Sender.step_Post;
 import static tools.Sender.step_Put;
 
@@ -56,5 +57,9 @@ public class Pet {
   public Response update() {
     Map<String, Object> queryJson = request("create");
     return step_Put(requestSpecification, endpoint.getUrls().get("base"), queryJson, endpoint.getResponse().get("create_pass"), status_code);
+  }
+
+  public Response delete() {
+    return step_Delete(requestSpecification, endpoint.getUrls().get("base"), this.id, status_code);
   }
 }
