@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
+  default-lazy-init="true"
+  default-autowire="byName">
+
+  <bean name="pass" class="endpoints.Pet">
+    <property name="status_code" value="200"/>
+    <property name="id" value="100"/>
+    <property name="name" value="Frenki"/>
+    <property name="status" value="available"/>
+    <property name="photoUrls">
+      <list>
+        <value>http://cairnterrier.ru/wp-content/uploads/2017/02/IMG-Weimaraner-1-459x574.jpg</value>
+      </list>
+    </property>
+    <property name="category">
+      <map>
+        <entry key="id" value="0"/>
+        <entry key="name" value="dog"/>
+      </map>
+    </property>
+    <property name="tags">
+      <map>
+        <entry key="id" value="0"/>
+        <entry key="name" value="веймар"/>
+      </map>
+    </property>
+  </bean>
+</beans>

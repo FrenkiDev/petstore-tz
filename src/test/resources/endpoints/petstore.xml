@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
+  default-lazy-init="true"
+  default-autowire="byName">
+
+  <bean name="endpointPet" class="endpoints.EndpointsImpl">
+    <property name="urls">
+      <map>
+        <entry key="base" value="/pet"/>
+        <entry key="findsByStatus" value="/pet/findByStatus"/>
+        <entry key="byPetId" value="/pet/{petId}"/>
+      </map>
+    </property>
+    <property name="headerParams">
+      <map>
+        <entry key="accept" value="application/json"/>
+        <entry key="Content-Type" value="application/json"/>
+      </map>
+    </property>
+    <property name="request">
+      <map>
+        <entry key="create" value="src/test/resources/requests/add_a_new_pet_to_thestore.json"/>
+      </map>
+    </property>
+    <property name="response">
+      <map>
+        <entry key="create_pass" value="src/test/resources/response/add_a_new_pet_to_thestore.json"/>
+      </map>
+    </property>
+  </bean>
+</beans>
