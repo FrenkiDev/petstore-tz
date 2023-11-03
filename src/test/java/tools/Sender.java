@@ -31,16 +31,29 @@ public class Sender {
         .extract().response();
   }
 
-  public static Response step_Post(RequestSpecification requestSpecification, String beanPath, Object queryJson, String responseSchema, int statusCode) {
+  public static Response step_Post(RequestSpecification requestSpecification, String path, Object queryJson, String responseSchema, int statusCode) {
     return given()
         .redirects().follow(false)
         .spec(requestSpecification)
         .when()
         .log().all()
         .body(queryJson)
-        .post(beanPath)
+        .post(path)
         .then()
         .log().all()
+        .statusCode(statusCode)
+        .body(matchesJsonSchema(new File(responseSchema)))
+        .extract().response();
+  }
+
+  public static Response step_Put(RequestSpecification requestSpecification, String path, Object queryJson, String responseSchema, int statusCode) {
+    return given()
+        .redirects().follow(false)
+        .spec(requestSpecification)
+        .when()
+        .body(queryJson)
+        .put(path)
+        .then()
         .statusCode(statusCode)
         .body(matchesJsonSchema(new File(responseSchema)))
         .extract().response();

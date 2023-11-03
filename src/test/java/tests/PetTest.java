@@ -11,7 +11,10 @@ import io.restassured.response.Response;
 import java.util.Optional;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -22,6 +25,9 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @Epic("Зоомагазин->Домашний питомец")
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration({"/datapools/pet.xml", "/endpoints/petstore.xml"})
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+//@ExtendWith(CreateUser.class)
+//@ExtendWith(DeleteUser.class)
 public class PetTest {
   @Qualifier("pass")
   @Autowired
@@ -33,9 +39,25 @@ public class PetTest {
   }
 
   @Test
+  @Order(0)
   @DisplayName("Add a new pet to the store")
-  void should_SuccessAddaNewPetToTheStore_ReturnCode200(){
+  void should_SuccessAddaNewPetToTheStore_CompareIdAndNameNewDogFrenki(){
     Response response = dog.add();
+    JsonPath jPath = response.jsonPath();
+
+    int id = jPath.getInt("id");
+    String name = jPath.getString("name");
+
+    Assertions.assertEquals(dog.getId(), id);
+    Assertions.assertEquals(dog.getName(), name);
+  }
+
+  @Test
+  @Order(1)
+  @DisplayName("Update an existing pet")
+  void should_SuccessUpdateAnExistingPet__CompareIdAndNameUpdateNameDogFrenk(){
+    dog.setName("Frenk");
+    Response response = dog.update();
     JsonPath jPath = response.jsonPath();
 
     int id = jPath.getInt("id");
