@@ -33,13 +33,25 @@ public class Pet {
   private HashMap<String, String> category;
   private HashMap<String, String> tags;
 
-  @Step("Add a new pet to the store")
+  @Step("Добавить нового питомца в хранилище")
   public Response add() {
     Map<String, Object> queryJson = request("create");
     return step_Post(requestSpecification, endpoint.getUrls().get("base"), queryJson, endpoint.getResponse().get("create_pass"), status_code);
   }
 
+  @Step("Обновить данные питомца")
+  public Response update() {
+    Map<String, Object> queryJson = request("create");
+    return step_Put(requestSpecification, endpoint.getUrls().get("base"), queryJson, endpoint.getResponse().get("create_pass"), status_code);
+  }
+
+  @Step("Удалить питомца из хранилища")
+  public Response delete() {
+    return step_Delete(requestSpecification, endpoint.getUrls().get("base") + "/" + this.id, status_code);
+  }
+
   @NotNull
+  @Step("Заполняем запрос {request}")
   private Map<String, Object> request(String request) {
     JsonPath jsonPath = new JsonPath(new File(endpoint.getRequest().get(request)));
     Map<String, Object> queryJson = jsonPath.getMap("$");
@@ -52,14 +64,5 @@ public class Pet {
     queryJson.replace("tag", this.tags);
 
     return queryJson;
-  }
-
-  public Response update() {
-    Map<String, Object> queryJson = request("create");
-    return step_Put(requestSpecification, endpoint.getUrls().get("base"), queryJson, endpoint.getResponse().get("create_pass"), status_code);
-  }
-
-  public Response delete() {
-    return step_Delete(requestSpecification, endpoint.getUrls().get("base"), this.id, status_code);
   }
 }

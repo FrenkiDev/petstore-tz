@@ -3,6 +3,7 @@ package tools;
 import static io.restassured.RestAssured.given;
 
 import endpoints.EndpointsImpl;
+import io.qameta.allure.Step;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -19,6 +20,7 @@ public class Sender {
         .build();
   }
 
+  @Step("GET запрос - {path} ожидаем статус ответа - {statusCode}")
   public static Response step_Get(RequestSpecification requestSpecification, String path, String responseSchema, int statusCode) {
     return given()
         .redirects().follow(false)
@@ -31,6 +33,7 @@ public class Sender {
         .extract().response();
   }
 
+  @Step("POST запрос - {path} ожидаем статус ответа - {statusCode}")
   public static Response step_Post(RequestSpecification requestSpecification, String path, Object queryJson, String responseSchema, int statusCode) {
     return given()
         .redirects().follow(false)
@@ -46,6 +49,7 @@ public class Sender {
         .extract().response();
   }
 
+  @Step("PUT запрос - {path} ожидаем статус ответа - {statusCode}")
   public static Response step_Put(RequestSpecification requestSpecification, String path, Object queryJson, String responseSchema, int statusCode) {
     return given()
         .redirects().follow(false)
@@ -61,6 +65,7 @@ public class Sender {
         .extract().response();
   }
 
+  @Step("DELETE запрос - {path} с параметром {nameParam} = {valueParam}  ожидаем статус ответа - {statusCode}")
   public static Response step_Delete(RequestSpecification requestSpecification, String path, String nameParam, Object valueParam, int statusCode) {
     return given()
         .redirects().follow(false)
@@ -75,13 +80,14 @@ public class Sender {
         .extract().response();
   }
 
-  public static Response step_Delete(RequestSpecification requestSpecification, String path, int valueParam, int statusCode) {
+  @Step("DELETE запрос - {path}  ожидаем статус ответа - {statusCode}")
+  public static Response step_Delete(RequestSpecification requestSpecification, String path, int statusCode) {
     return given()
         .redirects().follow(false)
         .spec(requestSpecification)
         .when()
         .log().all()
-        .delete(path + "/" + valueParam)
+        .delete(path)
         .then()
         .log().all()
         .statusCode(statusCode)
