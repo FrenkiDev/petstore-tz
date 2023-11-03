@@ -1,0 +1,12 @@
+# vim: foldlevel=2 foldlevelstart=2 foldmethod=marker foldmarker={,} ft=yaml paste expandtab ts=2 sts=2 hls
+version: '3.7'
+services:
+  petstore-tz:
+    container_name: "petstore-tz"
+    image: petstore-tz:latest
+    volumes:
+      - /home/maven/target/allure-results:YOU_PATH
+    environment:
+      BASE_URL: https://petstore.swagger.io
+      API_KEY: special
+    restart: 'no'

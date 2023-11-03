@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class EndpointsImpl {
+public class Endpoint {
     private Map<String, String> urls;
     private Map<String, String> headerParams;
     private Map<String, String> request;

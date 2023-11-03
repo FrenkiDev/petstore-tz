@@ -6,12 +6,12 @@
   default-lazy-init="true"
   default-autowire="byName">
 
-  <bean name="endpointPet" class="endpoints.EndpointsImpl">
+  <bean name="endpointPet" class="endpoints.Endpoint">
     <property name="urls">
       <map>
-        <entry key="base" value="/pet"/>
-        <entry key="findsByStatus" value="/pet/findByStatus"/>
-        <entry key="byPetId" value="/pet/{petId}"/>
+        <entry key="base" value="/v2/pet"/>
+        <entry key="findsByStatus" value="/v2/pet/findByStatus"/>
+        <entry key="byPetId" value="/v2/pet/{petId}"/>
       </map>
     </property>
     <property name="headerParams">

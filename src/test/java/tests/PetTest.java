@@ -8,7 +8,6 @@ import io.qameta.allure.Link;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
-import java.util.Optional;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer;
@@ -22,20 +21,20 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @Link("https://petstore.swagger.io/#/pet")
-@Epic("Зоомагазин->Домашний питомец")
+@Epic("Зоомагазин->Домашний питомец->валидационные тесты")
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration({"/datapools/pet.xml", "/endpoints/petstore.xml"})
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-//@ExtendWith(CreateUser.class)
-//@ExtendWith(DeleteUser.class)
+//@ExtendWith(SetUp.class)
+//@ExtendWith(CleanUp.class)
 public class PetTest {
   @Qualifier("pass")
   @Autowired
   Pet dog;
 
   static {
-    RestAssured.baseURI = "https://petstore.swagger.io/v2";
-    RestAssured.requestSpecification = sessionAndContentTypeJson("special");
+    RestAssured.baseURI = System.getenv("BASE_URL");
+    RestAssured.requestSpecification = sessionAndContentTypeJson(System.getenv("API_KEY"));
   }
 
   @Test

@@ -2,7 +2,6 @@ package tools;
 
 import static io.restassured.RestAssured.given;
 
-import endpoints.EndpointsImpl;
 import io.qameta.allure.Step;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;

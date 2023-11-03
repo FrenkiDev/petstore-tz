@@ -23,7 +23,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 public class Pet {
   @Qualifier("endpointPet")
   @Autowired
-  protected EndpointsImpl endpoint;
+  protected Endpoint endpoint;
 
   private int status_code;
   private int id;
