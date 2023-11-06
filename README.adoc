@@ -33,6 +33,49 @@
 1. Sender - класс который занимается отправкой запросов согласно методу протокола HTTP/HTTPS (GET, POST,PUT, DELETE)
 1. Endpoint - класс который хранит необходимую информацию для отправки проверки и настройки запросов (Путь endpoint, заголовки, пути к файлам с телами запросов и схем валидации ответов)
 
+*Класс Sender*
+
+Класс содержит статические методы для отправки CRUD запроса с разной конфигурацией
+
+[source,java]
+include::src/test/java/tools/Sender.java[lines=14..]
+
+
+*Класс Endpoint*
+
+    Содержит информацию о точке сервиса, собирается из XML файлов в которых описываем путь к rest методу Сервиса, параметры заголовка, так же содержит пути к шаблонам тел запросов и пути к json схемам валидации ответов
+
+[source,java]
+include::src/test/java/endpoints/Endpoint.java[lines=7..14]
+
+*Класс Pet*
+
+    Содержит свойства и методы для управления CRUD питомцами
+
+Свойство в котором храниться информация о endpoint (путь, параметры заголовка, пути к шаблонам запросов и схем валидации ответа)
+[source,java]
+include::src/test/java/endpoints/Pet.java[lines=24..26]
+
+Свойства для заполнения тела запроса:
+[source,java]
+include::src/test/java/endpoints/Pet.java[lines=28..34]
+
+Методы:
+[source,java]
+include::src/test/java/endpoints/Pet.java[lines=34..67]
+
+Xml описание bean endpoint свойства endpoint в классе Pet
+[source,xml]
+include::src/test/resources/endpoints/petstore.xml[lines=9..33]
+
+xml описание bean Pet для теста с положительным результатом
+[source,xml]
+include::src/test/resources/datapools/pet.xml[lines=9..31]
+
+*Тесты валидации*
+[source,java]
+include::src/test/java/tests/PetTest.java[lines=23..]
+
 == Запуск тестов
 
 *Собрать docker images*

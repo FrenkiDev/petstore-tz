@@ -18,7 +18,6 @@ public class Sender {
         .setContentType(ContentType.JSON)
         .build();
   }
-
   @Step("GET запрос - {path} ожидаем статус ответа - {statusCode}")
   public static Response step_Get(RequestSpecification requestSpecification, String path, String responseSchema, int statusCode) {
     return given()
@@ -31,7 +30,6 @@ public class Sender {
         .body(matchesJsonSchema(new File(responseSchema)))
         .extract().response();
   }
-
   @Step("POST запрос - {path} ожидаем статус ответа - {statusCode}")
   public static Response step_Post(RequestSpecification requestSpecification, String path, Object queryJson, String responseSchema, int statusCode) {
     return given()
@@ -47,7 +45,6 @@ public class Sender {
         .body(matchesJsonSchema(new File(responseSchema)))
         .extract().response();
   }
-
   @Step("PUT запрос - {path} ожидаем статус ответа - {statusCode}")
   public static Response step_Put(RequestSpecification requestSpecification, String path, Object queryJson, String responseSchema, int statusCode) {
     return given()
@@ -63,7 +60,6 @@ public class Sender {
         .body(matchesJsonSchema(new File(responseSchema)))
         .extract().response();
   }
-
   @Step("DELETE запрос - {path} с параметром {nameParam} = {valueParam}  ожидаем статус ответа - {statusCode}")
   public static Response step_Delete(RequestSpecification requestSpecification, String path, String nameParam, Object valueParam, int statusCode) {
     return given()
@@ -78,7 +74,6 @@ public class Sender {
         .statusCode(statusCode)
         .extract().response();
   }
-
   @Step("DELETE запрос - {path}  ожидаем статус ответа - {statusCode}")
   public static Response step_Delete(RequestSpecification requestSpecification, String path, int statusCode) {
     return given()

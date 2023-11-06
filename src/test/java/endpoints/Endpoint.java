@@ -12,4 +12,3 @@ public class Endpoint {
     private Map<String, String> request;
     private Map<String, String> response;
 }
-

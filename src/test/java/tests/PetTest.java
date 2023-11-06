@@ -31,26 +31,21 @@ public class PetTest {
   @Qualifier("pass")
   @Autowired
   Pet dog;
-
   static {
     RestAssured.baseURI = System.getenv("BASE_URL");
     RestAssured.requestSpecification = sessionAndContentTypeJson(System.getenv("API_KEY"));
   }
-
   @Test
   @Order(0)
   @DisplayName("Add a new pet to the store")
   void should_SuccessAddaNewPetToTheStore_CompareIdAndNameNewDogFrenki(){
     Response response = dog.add();
     JsonPath jPath = response.jsonPath();
-
     int id = jPath.getInt("id");
     String name = jPath.getString("name");
-
     Assertions.assertEquals(dog.getId(), id);
     Assertions.assertEquals(dog.getName(), name);
   }
-
   @Test
   @Order(1)
   @DisplayName("Update an existing pet")
@@ -58,46 +53,36 @@ public class PetTest {
     dog.setName("Frenk");
     Response response = dog.update();
     JsonPath jPath = response.jsonPath();
-
     int id = jPath.getInt("id");
     String name = jPath.getString("name");
-
     Assertions.assertEquals(dog.getId(), id);
     Assertions.assertEquals(dog.getName(), name);
   }
-
   @Test
   @Order(2)
   @DisplayName("uploads an image")
   void sho_(){}
-
   @Test
   @Order(2)
   @DisplayName("Finds Pets by status")
   void sho1_(){}
-
   @Test
   @Order(2)
   @DisplayName("Find pet by ID")
   void sho_1(){}
-
   @Test
   @Order(2)
   @DisplayName("Updates a pet in the store with form data")
   void sho_2(){}
-
   @Test
   @Order(7)
   @DisplayName("Delete a pet")
   void should_SuccessDeleteAPet_ReturnCode200And_TypeUnknownMessage100(){
     Response response = dog.delete();
-
     JsonPath jPath = response.jsonPath();
-
     int code = jPath.getInt("code");
     String type = jPath.getString("type");
     String message = jPath.getString("message");
-
     Assertions.assertAll(
         () -> Assertions.assertEquals(200, code),
         () -> Assertions.assertEquals("unknown", type),
