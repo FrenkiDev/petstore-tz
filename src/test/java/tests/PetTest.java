@@ -12,6 +12,8 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
+import java.util.Map;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer;
@@ -35,8 +37,8 @@ public class PetTest {
   @Autowired
   Pet dog;
   static {
-    RestAssured.baseURI = System.getenv("BASE_URL");
-    RestAssured.requestSpecification = sessionAndContentTypeJson(System.getenv("API_KEY"));
+    RestAssured.baseURI = "https://petstore.swagger.io"; //System.getenv("BASE_URL");
+    RestAssured.requestSpecification = sessionAndContentTypeJson("special");//System.getenv("API_KEY"));
   }
   @Test
   @Order(0)
@@ -52,7 +54,7 @@ public class PetTest {
   @Test
   @Order(1)
   @DisplayName("Update an existing pet")
-  void should_SuccessUpdateAnExistingPet__CompareIdAndNameUpdateNameDogFrenk(){
+  void should_SuccessUpdateAnExistingPet_CompareIdAndNameUpdateNameDogFrenk(){
     dog.setName("Frenk");
     Response response = dog.update();
     JsonPath jPath = response.jsonPath();
@@ -64,7 +66,7 @@ public class PetTest {
   @Test
   @Order(2)
   @DisplayName("uploads an image")
-  void sho_(){
+  void should_UploadImagesForPet_ReturnCode200AndMessageUploadFileBytes(){
     Path filePath = Paths.get(dog.getImage());
     String fileName = filePath.getFileName().toString();
     Response response = dog.uploadImage();
@@ -80,7 +82,18 @@ public class PetTest {
   @Test
   @Order(2)
   @DisplayName("Finds Pets by status")
-  void sho1_(){}
+  void should_FindsPetsByStatus_ReturnListAllPetStatusAvailable(){
+    Response response = dog.find("status", "available");
+    JsonPath jPath = response.jsonPath();
+    List<Map<String, ?>> result = jPath.get("$");
+    long countStatus_sold = result.stream().filter(s -> s.get("status").equals("sold")).count();
+    long countStatus_pending = result.stream().filter(s -> s.get("status").equals("pending")).count();
+    long countStatus_available = result.stream().filter(s -> s.get("status").equals("available")).count();
+    Assertions.assertAll(
+        () -> Assertions.assertEquals(0, countStatus_sold),
+        () -> Assertions.assertEquals(0, countStatus_pending),
+        () -> Assertions.assertNotEquals(373, countStatus_available));
+  }
   @Test
   @Order(2)
   @DisplayName("Find pet by ID")

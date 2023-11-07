@@ -19,11 +19,28 @@ public class Sender {
         .build();
   }
   @Step("GET запрос - {path} ожидаем статус ответа - {statusCode}")
-  public static Response step_Get(RequestSpecification requestSpecification, String path, String responseSchema, int statusCode) {
+  public static Response step_Get(RequestSpecification requestSpecification, Map<String, ?> header, String path, String responseSchema, int statusCode) {
     return given()
         .redirects().follow(false)
         .spec(requestSpecification)
         .when()
+        .log().all()
+        .headers(header)
+        .get(path)
+        .then()
+        .statusCode(statusCode)
+        .body(matchesJsonSchema(new File(responseSchema)))
+        .extract().response();
+  }
+  @Step("GET запрос - {path} ожидаем статус ответа - {statusCode}")
+  public static Response step_Get(RequestSpecification requestSpecification, Map<String, ?> header, String path, String nameParam, Object valueParam, String responseSchema, int statusCode) {
+    return given()
+        .redirects().follow(false)
+        .spec(requestSpecification)
+        .queryParam(nameParam, valueParam)
+        .when()
+        .log().all()
+        .headers(header)
         .get(path)
         .then()
         .statusCode(statusCode)

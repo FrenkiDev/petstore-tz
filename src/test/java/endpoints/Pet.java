@@ -3,6 +3,7 @@ package endpoints;
 import static io.restassured.RestAssured.requestSpecification;
 import static java.lang.String.format;
 import static tools.Sender.step_Delete;
+import static tools.Sender.step_Get;
 import static tools.Sender.step_Post;
 import static tools.Sender.step_Put;
 
@@ -63,6 +64,10 @@ public class Pet {
         , "image/jpeg"
         , endpoint.getResponse().get("uploadAnImages")
         , status_code);
+  }
+  @Step("Найти всех питомцев по полю {} с значением {}")
+  public Response find(String name, String value) {
+    return step_Get(requestSpecification, endpoint.getHeaderParams(), endpoint.getUrls().get("findsByStatus"), name, value, endpoint.getResponse().get("findsByStatus"), status_code);
   }
   @NotNull
   @Step("Заполняем запрос {request}")

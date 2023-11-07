@@ -29,6 +29,7 @@
       <map>
         <entry key="create_pass" value="src/test/resources/response/add_a_new_pet_to_thestore.json"/>
         <entry key="uploadAnImages" value="src/test/resources/response/upload_images.json"/>
+        <entry key="findsByStatus" value="src/test/resources/response/findsByStatus.json"/>
       </map>
     </property>
   </bean>
