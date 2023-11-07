@@ -23,7 +23,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-
 @Link("https://petstore.swagger.io/#/pet")
 @Epic("Зоомагазин->Домашний питомец->валидационные тесты")
 @ExtendWith(SpringExtension.class)

@@ -1,18 +1,15 @@
 package tools;
 
 import static io.restassured.RestAssured.given;
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchema;
 
 import io.qameta.allure.Step;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
-import io.restassured.http.Header;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import java.io.File;
 import java.util.Map;
-
-import static io.restassured.RestAssured.requestSpecification;
-import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchema;
 
 public class Sender {
   public static RequestSpecification sessionAndContentTypeJson(String sessionCookie){

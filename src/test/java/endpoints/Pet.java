@@ -34,7 +34,6 @@ public class Pet {
   private HashMap<String, String> tags;
   private String image;
   private String additionalMetadata;
-
   @Step("Добавить нового питомца в хранилище")
   public Response add() {
     Map<String, Object> queryJson = request("create");

@@ -46,7 +46,7 @@ include::src/test/java/tools/Sender.java[lines=14..]
     Содержит информацию о точке сервиса, собирается из XML файлов в которых описываем путь к rest методу Сервиса, параметры заголовка, так же содержит пути к шаблонам тел запросов и пути к json схемам валидации ответов
 
 [source,java]
-include::src/test/java/endpoints/Endpoint.java[lines=7..14]
+include::src/test/java/endpoints/Endpoint.java[lines=7..]
 
 *Класс Pet*
 
@@ -54,27 +54,27 @@ include::src/test/java/endpoints/Endpoint.java[lines=7..14]
 
 Свойство в котором храниться информация о endpoint (путь, параметры заголовка, пути к шаблонам запросов и схем валидации ответа)
 [source,java]
-include::src/test/java/endpoints/Pet.java[lines=24..26]
+include::src/test/java/endpoints/Pet.java[lines=24..27]
 
 Свойства для заполнения тела запроса:
 [source,java]
-include::src/test/java/endpoints/Pet.java[lines=28..34]
+include::src/test/java/endpoints/Pet.java[lines=28..36]
 
 Методы:
 [source,java]
-include::src/test/java/endpoints/Pet.java[lines=34..67]
+include::src/test/java/endpoints/Pet.java[lines=37..]
 
 Xml описание bean endpoint свойства endpoint в классе Pet
 [source,xml]
-include::src/test/resources/endpoints/petstore.xml[lines=9..33]
+include::src/test/resources/endpoints/petstore.xml[lines=9..34]
 
 xml описание bean Pet для теста с положительным результатом
 [source,xml]
-include::src/test/resources/datapools/pet.xml[lines=9..31]
+include::src/test/resources/datapools/pet.xml[lines=9..33]
 
 *Тесты валидации*
 [source,java]
-include::src/test/java/tests/PetTest.java[lines=23..]
+include::src/test/java/tests/PetTest.java[lines=26..]
 
 == Запуск тестов
 
