@@ -1,6 +1,7 @@
 package endpoints;
 
 import static io.restassured.RestAssured.requestSpecification;
+import static java.lang.String.format;
 import static tools.Sender.step_Delete;
 import static tools.Sender.step_Post;
 import static tools.Sender.step_Put;
@@ -31,10 +32,13 @@ public class Pet {
   private List<String> photoUrls;
   private HashMap<String, String> category;
   private HashMap<String, String> tags;
+  private String image;
+  private String additionalMetadata;
+
   @Step("Добавить нового питомца в хранилище")
   public Response add() {
     Map<String, Object> queryJson = request("create");
-    return step_Post(requestSpecification, endpoint.getUrls().get("base"), queryJson, endpoint.getResponse().get("create_pass"), status_code);
+    return step_Post(requestSpecification, endpoint.getHeaderParams(), endpoint.getUrls().get("base"), queryJson, endpoint.getResponse().get("create_pass"), status_code);
   }
   @Step("Обновить данные питомца")
   public Response update() {
@@ -44,6 +48,22 @@ public class Pet {
   @Step("Удалить питомца из хранилища")
   public Response delete() {
     return step_Delete(requestSpecification, endpoint.getUrls().get("base") + "/" + this.id, status_code);
+  }
+  @Step("Обновляем картинку питомца через загрузку файла")
+  public Response uploadImage() {
+    Map<String, String> headers = endpoint.getHeaderParams();
+    headers.replace("Content-Type", "multipart/form-data");
+    Map<String, String> formParams = new HashMap<>();
+    formParams.put("additionalMetadata", this.additionalMetadata);
+    return step_Post(requestSpecification
+        , headers
+        , format(endpoint.getUrls().get("uploadAnImages"), this.id)
+        , formParams
+        , "file"
+        ,  new File(this.image)
+        , "image/jpeg"
+        , endpoint.getResponse().get("uploadAnImages")
+        , status_code);
   }
   @NotNull
   @Step("Заполняем запрос {request}")

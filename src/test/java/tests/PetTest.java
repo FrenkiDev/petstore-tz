@@ -1,13 +1,17 @@
 package tests;
 
+import static java.lang.String.format;
 import static tools.Sender.sessionAndContentTypeJson;
 
 import endpoints.Pet;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Link;
 import io.restassured.RestAssured;
+import io.restassured.http.Header;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer;
@@ -61,7 +65,19 @@ public class PetTest {
   @Test
   @Order(2)
   @DisplayName("uploads an image")
-  void sho_(){}
+  void sho_(){
+    Path filePath = Paths.get(dog.getImage());
+    String fileName = filePath.getFileName().toString();
+    Response response = dog.uploadImage();
+    JsonPath jPath = response.jsonPath();
+    int code = jPath.getInt("code");
+    String type = jPath.getString("type");
+    String message = jPath.getString("message");
+    Assertions.assertAll(
+        () -> Assertions.assertEquals(200, code),
+        () -> Assertions.assertEquals("unknown", type),
+        () -> Assertions.assertEquals(format("additionalMetadata: %s\nFile uploaded to ./%s, 116435 bytes", dog.getAdditionalMetadata(), fileName), message));
+  }
   @Test
   @Order(2)
   @DisplayName("Finds Pets by status")

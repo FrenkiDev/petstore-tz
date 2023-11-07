@@ -28,5 +28,7 @@
         <entry key="name" value="веймар"/>
       </map>
     </property>
+    <property name="image" value="src/test/resources/dog_veimar.jpg"/>
+    <property name="additionalMetadata" value="jpgFile"/>
   </bean>
 </beans>

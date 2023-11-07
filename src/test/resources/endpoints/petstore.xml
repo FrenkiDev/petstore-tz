@@ -11,7 +11,8 @@
       <map>
         <entry key="base" value="/v2/pet"/>
         <entry key="findsByStatus" value="/v2/pet/findByStatus"/>
-        <entry key="byPetId" value="/v2/pet/{petId}"/>
+        <entry key="byPetId" value="/v2/pet/%s"/>
+        <entry key="uploadAnImages" value="v2/pet/%s/uploadImage"/>
       </map>
     </property>
     <property name="headerParams">
@@ -28,6 +29,7 @@
     <property name="response">
       <map>
         <entry key="create_pass" value="src/test/resources/response/add_a_new_pet_to_thestore.json"/>
+        <entry key="uploadAnImages" value="src/test/resources/response/upload_images.json"/>
       </map>
     </property>
   </bean>
