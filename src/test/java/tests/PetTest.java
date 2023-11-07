@@ -7,7 +7,6 @@ import endpoints.Pet;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Link;
 import io.restassured.RestAssured;
-import io.restassured.http.Header;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import java.nio.file.Path;
@@ -37,8 +36,8 @@ public class PetTest {
   @Autowired
   Pet dog;
   static {
-    RestAssured.baseURI = "https://petstore.swagger.io"; //System.getenv("BASE_URL");
-    RestAssured.requestSpecification = sessionAndContentTypeJson("special");//System.getenv("API_KEY"));
+    RestAssured.baseURI = System.getenv("BASE_URL");
+    RestAssured.requestSpecification = sessionAndContentTypeJson(System.getenv("API_KEY"));
   }
   @Test
   @Order(0)
@@ -65,7 +64,7 @@ public class PetTest {
   }
   @Test
   @Order(2)
-  @DisplayName("uploads an image")
+  @DisplayName("Uploads an image")
   void should_UploadImagesForPet_ReturnCode200AndMessageUploadFileBytes(){
     Path filePath = Paths.get(dog.getImage());
     String fileName = filePath.getFileName().toString();
@@ -97,11 +96,27 @@ public class PetTest {
   @Test
   @Order(2)
   @DisplayName("Find pet by ID")
-  void sho_1(){}
+  void should_FindsPetsById_ReturnDataPetThisId100(){
+    String petId = "100";
+    Response response = dog.getPetById(petId);
+    JsonPath jPath = response.jsonPath();
+    String id = jPath.getString("id");
+    Assertions.assertEquals(petId, id);
+  }
   @Test
   @Order(2)
   @DisplayName("Updates a pet in the store with form data")
-  void sho_2(){}
+  void should_UpdateAnExistingPet(){
+    Response response = dog.updateWithFromData("name_1", "sold");
+    JsonPath jPath = response.jsonPath();
+    int code = jPath.getInt("code");
+    String type = jPath.getString("type");
+    String message = jPath.getString("message");
+    Assertions.assertAll(
+        () -> Assertions.assertEquals(200, code),
+        () -> Assertions.assertEquals("unknown", type),
+        () -> Assertions.assertEquals("100", message));
+  }
   @Test
   @Order(7)
   @DisplayName("Delete a pet")

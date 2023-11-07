@@ -54,11 +54,11 @@ include::src/test/java/endpoints/Endpoint.java[lines=7..]
 
 Свойство в котором храниться информация о endpoint (путь, параметры заголовка, пути к шаблонам запросов и схем валидации ответа)
 [source,java]
-include::src/test/java/endpoints/Pet.java[lines=24..27]
+include::src/test/java/endpoints/Pet.java[lines=25..28]
 
 Свойства для заполнения тела запроса:
 [source,java]
-include::src/test/java/endpoints/Pet.java[lines=28..37]
+include::src/test/java/endpoints/Pet.java[lines=29..37]
 
 Методы:
 [source,java]
@@ -66,7 +66,7 @@ include::src/test/java/endpoints/Pet.java[lines=38..]
 
 Xml описание bean endpoint свойства endpoint в классе Pet
 [source,xml]
-include::src/test/resources/endpoints/petstore.xml[lines=9..34]
+include::src/test/resources/endpoints/petstore.xml[lines=9..36]
 
 xml описание bean Pet для теста с положительным результатом
 [source,xml]
@@ -74,7 +74,7 @@ include::src/test/resources/datapools/pet.xml[lines=8..]
 
 *Тесты валидации*
 [source,java]
-include::src/test/java/tests/PetTest.java[lines=28..]
+include::src/test/java/tests/PetTest.java[lines=27..]
 
 == Запуск тестов
 

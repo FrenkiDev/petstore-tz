@@ -63,7 +63,23 @@ public class Sender {
         .body(matchesJsonSchema(new File(responseSchema)))
         .extract().response();
   }
-  @Step("POST запрос - {path} с файлом ипараметрами загрузки, ожидаем статус ответа - {statusCode}")
+  @Step("POST запрос - {path} с файлом и параметрами загрузки, ожидаем статус ответа - {statusCode}")
+  public static Response step_Post(RequestSpecification requestSpecification, Map<String, ?> header, Map<String, ?> formParam, String path, String responseSchema, int statusCode) {
+    return given()
+        .redirects().follow(false)
+        .spec(requestSpecification)
+        .when()
+        .log().all()
+        .headers(header)
+        .formParams(formParam)
+        .post(path)
+        .then()
+        .log().all()
+        .statusCode(statusCode)
+        .body(matchesJsonSchema(new File(responseSchema)))
+        .extract().response();
+  }
+  @Step("POST запрос - {path} с файлом и параметрами загрузки, ожидаем статус ответа - {statusCode}")
   public static Response step_Post(RequestSpecification requestSpecification, Map<String, ?> header, String path, Map<String, ?> formParam, String nameParamFile, File file, String filetype, String responseSchema, int statusCode) {
     return given()
         .redirects().follow(false)

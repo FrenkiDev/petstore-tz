@@ -55,19 +55,27 @@ public class Pet {
     headers.replace("Content-Type", "multipart/form-data");
     Map<String, String> formParams = new HashMap<>();
     formParams.put("additionalMetadata", this.additionalMetadata);
-    return step_Post(requestSpecification
-        , headers
-        , format(endpoint.getUrls().get("uploadAnImages"), this.id)
-        , formParams
-        , "file"
-        ,  new File(this.image)
-        , "image/jpeg"
-        , endpoint.getResponse().get("uploadAnImages")
-        , status_code);
+    return step_Post(requestSpecification, headers, format(endpoint.getUrls().get("uploadAnImages"), this.id), formParams, "file", new File(this.image), "image/jpeg",
+        endpoint.getResponse().get("uploadAnImages"), status_code);
   }
-  @Step("Найти всех питомцев по полю {} с значением {}")
+  @Step("Найти всех питомцев по полю {string} с значением {string}")
   public Response find(String name, String value) {
-    return step_Get(requestSpecification, endpoint.getHeaderParams(), endpoint.getUrls().get("findsByStatus"), name, value, endpoint.getResponse().get("findsByStatus"), status_code);
+    return step_Get(requestSpecification, endpoint.getHeaderParams(), endpoint.getUrls().get("findsByStatus"), name, value, endpoint.getResponse().get("findsByStatus"),
+        status_code);
+  }
+  @Step("Найти питомца по id {string}")
+  public Response getPetById(String petId) {
+    return step_Get(requestSpecification, endpoint.getHeaderParams(), format(endpoint.getUrls().get("byPetId"), petId), endpoint.getResponse().get("create_pass"),
+        status_code);
+  }
+  @Step("Найти питомца по id {string}")
+  public Response updateWithFromData(String name, String status) {
+    Map<String, String> headers = endpoint.getHeaderParams();
+    headers.replace("Content-Type", "application/x-www-form-urlencoded");
+    Map<String, String> formParams = new HashMap<>();
+    formParams.put("name", name);
+    formParams.put("status", status);
+    return step_Post(requestSpecification, headers, formParams, format(endpoint.getUrls().get("byPetId"), this.id), endpoint.getResponse().get("updateWithFormParam"), status_code);
   }
   @NotNull
   @Step("Заполняем запрос {request}")
