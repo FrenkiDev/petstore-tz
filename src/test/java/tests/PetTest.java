@@ -36,8 +36,8 @@ public class PetTest {
   @Autowired
   Pet dog;
   static {
-    RestAssured.baseURI = System.getenv("BASE_URL");
-    RestAssured.requestSpecification = sessionAndContentTypeJson(System.getenv("API_KEY"));
+    RestAssured.baseURI = "https://petstore.swagger.io"; //System.getenv("BASE_URL");
+    RestAssured.requestSpecification = sessionAndContentTypeJson("special");//System.getenv("API_KEY"));
   }
   @Test
   @Order(0)
