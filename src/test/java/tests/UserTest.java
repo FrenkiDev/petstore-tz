@@ -34,8 +34,8 @@ public class UserTest {
   User user;
   @BeforeEach
   public void setUp() {
-    RestAssured.baseURI = "https://petstore.swagger.io"; //System.getenv("BASE_URL");
-    user.setRequestSpecification(sessionAndContentTypeJson("special"));//System.getenv("API_KEY"));
+    RestAssured.baseURI = System.getenv("BASE_URL");
+    user.setRequestSpecification(sessionAndContentTypeJson(System.getenv("API_KEY")));
   }
   @Test
   @Order(0)
