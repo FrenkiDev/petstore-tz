@@ -82,15 +82,15 @@ include::src/test/java/tests/PetTest.java[lines=28..]
 
 Свойство в котором храниться информация о endpoint (путь, параметры заголовка, пути к шаблонам запросов и схем валидации ответа)
 [source,java]
-include::src/test/java/endpoints/User.java[lines=15..17]
+include::src/test/java/endpoints/User.java[lines=13..15]
 
 Свойства для заполнения тела запроса:
 [source,java]
-include::src/test/java/endpoints/User.java[lines=18..27]
+include::src/test/java/endpoints/User.java[lines=17..25]
 
 Методы:
 [source,java]
-include::src/test/java/endpoints/User.java[lines=28..]
+include::src/test/java/endpoints/User.java[lines=26..]
 
 Xml описание bean endpoint свойства endpoint в классе Pet
 [source,xml]

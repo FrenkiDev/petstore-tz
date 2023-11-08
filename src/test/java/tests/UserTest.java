@@ -29,13 +29,13 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 //@ExtendWith(SetUpUser.class)
 //@ExtendWith(CleanUpUser.class)
 public class UserTest {
-  @Qualifier("pass")
+  @Qualifier("pass_user")
   @Autowired
   User user;
   @BeforeEach
   public void setUp() {
-    RestAssured.baseURI = System.getenv("BASE_URL");
-    user.setRequestSpecification(sessionAndContentTypeJson(System.getenv("API_KEY")));
+    RestAssured.baseURI = "https://petstore.swagger.io"; //System.getenv("BASE_URL");
+    user.setRequestSpecification(sessionAndContentTypeJson("special"));//System.getenv("API_KEY"));
   }
   @Test
   @Order(0)
