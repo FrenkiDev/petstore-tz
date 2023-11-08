@@ -4,6 +4,7 @@ import static tools.Sender.sessionAndContentTypeJson;
 
 import endpoints.User;
 import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import io.qameta.allure.Link;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
@@ -18,9 +19,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-
 @Link("https://petstore.swagger.io/#/pet")
 @Epic("Зоомагазин->Домашний питомец->валидационные тесты")
+@Feature("Пользователь")
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration({"/datapools/user.xml", "/endpoints/petstore.xml"})
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -33,8 +34,8 @@ public class UserTest {
   User user;
   @BeforeEach
   public void setUp() {
-    RestAssured.baseURI = "https://petstore.swagger.io"; //System.getenv("BASE_URL");
-    user.setRequestSpecification(sessionAndContentTypeJson("special"));//System.getenv("API_KEY"));
+    RestAssured.baseURI = System.getenv("BASE_URL");
+    user.setRequestSpecification(sessionAndContentTypeJson(System.getenv("API_KEY")));
   }
   @Test
   @Order(0)

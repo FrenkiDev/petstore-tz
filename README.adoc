@@ -70,11 +70,39 @@ include::src/test/resources/endpoints/petstore.xml[lines=9..36]
 
 xml описание bean Pet для теста с положительным результатом
 [source,xml]
+include::src/test/resources/datapools/user.xml[lines=8..]
+
+*Тесты валидации*
+[source,java]
+include::src/test/java/tests/PetTest.java[lines=28..]
+
+*Класс User*
+
+    Содержит свойства и методы для управления CRUD пользователями
+
+Свойство в котором храниться информация о endpoint (путь, параметры заголовка, пути к шаблонам запросов и схем валидации ответа)
+[source,java]
+include::src/test/java/endpoints/User.java[lines=15..17]
+
+Свойства для заполнения тела запроса:
+[source,java]
+include::src/test/java/endpoints/User.java[lines=18..27]
+
+Методы:
+[source,java]
+include::src/test/java/endpoints/User.java[lines=28..]
+
+Xml описание bean endpoint свойства endpoint в классе Pet
+[source,xml]
+include::src/test/resources/endpoints/petstore.xml[lines=37..67]
+
+xml описание bean Pet для теста с положительным результатом
+[source,xml]
 include::src/test/resources/datapools/pet.xml[lines=8..]
 
 *Тесты валидации*
 [source,java]
-include::src/test/java/tests/PetTest.java[lines=27..]
+include::src/test/java/tests/UserTest.java[lines=22..]
 
 == Запуск тестов
 

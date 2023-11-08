@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 @Getter
 @Setter
 public class User {
-
   @Qualifier("endpointUser")
   @Autowired
   protected Endpoint endpoint;
