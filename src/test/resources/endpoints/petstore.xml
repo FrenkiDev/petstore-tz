@@ -34,4 +34,32 @@
       </map>
     </property>
   </bean>
+  <bean name="endpointUser" class="endpoints.Endpoint">
+    <property name="urls">
+      <map>
+        <entry key="createWithArray" value="/v2/user/createWithArray"/>
+        <entry key="createWithList" value="/v2/user/createWithList"/>
+        <entry key="byUserName" value="/v2/user/%s"/>
+        <entry key="base" value="/v2/user"/>
+        <entry key="login" value="/v2/user/login"/>
+        <entry key="logout" value="/v2/user/logout"/>
+      </map>
+    </property>
+    <property name="headerParams">
+      <map>
+        <entry key="accept" value="application/json"/>
+        <entry key="Content-Type" value="application/json"/>
+      </map>
+    </property>
+    <property name="request">
+      <map>
+        <entry key="create" value="src/test/resources/requests/add_a_new_pet_to_thestore.json"/>
+      </map>
+    </property>
+    <property name="response">
+      <map>
+        <entry key="create_pass" value="src/test/resources/response/add_a_new_pet_to_thestore.json"/>
+      </map>
+    </property>
+  </bean>
 </beans>

@@ -6,6 +6,15 @@
   default-lazy-init="true"
   default-autowire="byName">
 
-  <bean name="pass" class="endpoints/EndpointsImpl.java">
+  <bean name="pass" class="endpoints.User">
+    <property name="status_code" value="200"/>
+    <property name="id" value="100"/>
+    <property name="username" value="UserTest1"/>
+    <property name="firstName" value="Тестер"/>
+    <property name="lastName" value="Тестовый"/>
+    <property name="email" value="UserTest1@malo.com"/>
+    <property name="password" value="PaSSw0rd"/>
+    <property name="phone" value="88008008080"/>
+    <property name="userStatus" value="test"/>
   </bean>
 </beans>

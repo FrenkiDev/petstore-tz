@@ -29,8 +29,9 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration({"/datapools/pet.xml", "/endpoints/petstore.xml"})
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-//@ExtendWith(SetUp.class)
-//@ExtendWith(CleanUp.class)
+//TODO: реализовать для генерации данных для валид тестов негативного характера
+//@ExtendWith(SetUpPet.class)
+//@ExtendWith(CleanUpPet.class)
 public class PetTest {
   @Qualifier("pass")
   @Autowired
